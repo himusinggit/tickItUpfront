@@ -1,7 +1,18 @@
 import React from 'react'
 import { motion } from "framer-motion";
 import EventCard from '../components/Card';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { useEffect } from 'react';
+import Loader from '../components/Loader';
 function HomePage() {
+    const {data,isLoading,error}=useQuery({ queryKey: ['buyableTickets'], queryFn: async()=>{
+      const res=await axios.get('/api/v1/ticketTemplates/buyable',{
+        withCredentials:true
+      });
+      return res.data;
+    }});
+    if(!isLoading){
     return (
         <>
         <div className="max-w-7xl mx-auto px-6 py-10">
@@ -54,17 +65,23 @@ function HomePage() {
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          <EventCard />
-          <EventCard />
-          <EventCard />
-          <EventCard />
-          <EventCard />
+          
+          {
+            data&&data.data.map((ticket)=>(
+              <div key={ticket._id}>
+                <EventCard eventName={ticket.eventName} description={ticket.description} venue={ticket.venue} price={ticket.price} backgroundImage={ticket.backgroundImage} />
+              </div>
+            ))
+          }
         </div>
 
       </div>
-
         </>
     )
+    }
+    else{
+      return <Loader />;
+    }
 }
 
 export default HomePage

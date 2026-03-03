@@ -1,12 +1,20 @@
 import { useForm } from "react-hook-form";
 import Input from "../components/Input";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
+import { useQuery } from '@tanstack/react-query';
+
 export default function LoginPage() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const user=useQuery({queryKey:['getUser'],queryFn:async()=>{
+    await axios.get('/api/v1/users/login',{
+      withCredentials:true
+    })
+  }})
   const navigate=useNavigate();
   const onSubmit = (data) => {
     console.log(data);

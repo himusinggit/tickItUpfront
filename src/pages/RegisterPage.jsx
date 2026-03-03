@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import Input from "../components/Input";
 import ImageInput from "../components/ImageInput";
 import { useNavigate } from "react-router-dom";
+import AuthService from "../services/authService";
 export default function RegisterPage() {
   const navigate=useNavigate();
   const {
@@ -13,7 +14,16 @@ export default function RegisterPage() {
 
   const onSubmit = (data) => {
     console.log(data);
-    console.log(data.avatar.length);
+    AuthService.signup(data)
+    .then(
+      (resp)=>{
+        console.log(resp);
+        navigate("../");
+      })
+      .catch((err)=>{
+        console.log(err.response.data);
+        alert("Registration failed: "+err.response.data.message);
+      })
   };
 
   return (
@@ -92,7 +102,7 @@ export default function RegisterPage() {
                 val === watch("password") || "Passwords do not match",
             })}
           />
-          <ImageInput {...register("avatar")} height="30"width="30" imgPrev="rounded-full object-cover object-center" />
+          <ImageInput {...register("avatar")} height="13vh" width="13vh" imgPrev="rounded-full object-cover object-center" />
 
           <button
             type="submit"
@@ -104,7 +114,7 @@ export default function RegisterPage() {
         </form>
 
         {/* Footer */}
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center gap-2 relative">
           <p className="text-sm text-center text-gray-400 mt-6"></p>
             Already have an account?{" "}
             <p onClick={()=>{navigate("../auth/login")}} className="text-gray-900 cursor-pointer font-medium hover:underline">

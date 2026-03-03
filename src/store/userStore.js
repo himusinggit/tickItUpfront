@@ -8,4 +8,4 @@ const useAuthStore = create(persist((set) => ({
     name:'user',
     partialize:(state)=>({user:state.user})
 }))
-export default useAuthStore
+export default useAuthStore;

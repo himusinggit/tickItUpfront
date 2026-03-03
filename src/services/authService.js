@@ -1,5 +1,5 @@
 import axios from 'axios'
-import useAuthStore from '../store/AuthStore';
+import useAuthStore from '../store/userStore';
 const setUser=useAuthStore.getState().setUser;
 class authService{
     signup=async ({userName,fullName,email,password,avatar,coverImage})=>{
@@ -9,8 +9,6 @@ class authService{
         formData.append('email', email);
         formData.append('password', password);
         avatar.length&&formData.append('avatar', avatar[0]);
-        formData.append('coverImage', coverImage);
-        try {
             const response=await axios.post('/api/v1/users/register',formData,{
                 headers:{
                     'Content-Type':'multipart/form-data'
@@ -18,9 +16,6 @@ class authService{
             })
             this.login({userName,password});
             return response;
-        } catch (error) {
-            console.log(error);
-        }
     }
     login=async ({userName,password})=>{
         try {
