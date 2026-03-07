@@ -2,7 +2,17 @@ import useImagePreview from "../hooks/ImagePreview.hook";
 import { useState, forwardRef } from "react";
 
 const ImageInput = forwardRef(
-  ({ onChange, imgPrev = "", height = "150px", width = "150px", name = "avatar", ...rest }, ref) => {
+  (
+    {
+      onChange,
+      imgPrev = "",
+      height = "150px",
+      width = "150px",
+      name = "avatar",
+      ...rest
+    },
+    ref,
+  ) => {
     const [file, setFile] = useState(null);
     const value = useImagePreview(file);
 
@@ -48,7 +58,7 @@ const ImageInput = forwardRef(
         </label>
       </div>
     );
-  }
+  },
 );
 
 export default ImageInput;

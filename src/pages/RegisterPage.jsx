@@ -4,7 +4,7 @@ import ImageInput from "../components/ImageInput";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../services/authService";
 export default function RegisterPage() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,28 +15,29 @@ export default function RegisterPage() {
   const onSubmit = (data) => {
     console.log(data);
     AuthService.signup(data)
-    .then(
-      (resp)=>{
+      .then((resp) => {
         console.log(resp);
         navigate("../");
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log(err.response.data);
-        alert("Registration failed: "+err.response.data.message);
-      })
+        alert("Registration failed: " + err.response.data.message);
+      });
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="bg-white w-full max-w-md rounded-2xl shadow-sm border border-gray-100 p-8">
-
         {/* Header */}
-        <h1 className="text-2xl font-semibold text-gray-900 mb-1">Create an account</h1>
-        <p className="text-sm text-gray-400 mb-6">Fill in the details below to get started</p>
+        <h1 className="text-2xl font-semibold text-gray-900 mb-1">
+          Create an account
+        </h1>
+        <p className="text-sm text-gray-400 mb-6">
+          Fill in the details below to get started
+        </p>
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-
           <Input
             label="Username"
             name="userName"
@@ -102,7 +103,12 @@ export default function RegisterPage() {
                 val === watch("password") || "Passwords do not match",
             })}
           />
-          <ImageInput {...register("avatar")} height="13vh" width="13vh" imgPrev="rounded-full object-cover object-center" />
+          <ImageInput
+            {...register("avatar")}
+            height="13vh"
+            width="13vh"
+            imgPrev="rounded-full object-cover object-center"
+          />
 
           <button
             type="submit"
@@ -110,16 +116,20 @@ export default function RegisterPage() {
           >
             Register
           </button>
-
         </form>
 
         {/* Footer */}
         <div className="flex justify-center gap-2 relative">
           <p className="text-sm text-center text-gray-400 mt-6"></p>
-            Already have an account?{" "}
-            <p onClick={()=>{navigate("../auth/login")}} className="text-gray-900 cursor-pointer font-medium hover:underline">
-              Sign in
-            </p>
+          Already have an account?{" "}
+          <p
+            onClick={() => {
+              navigate("../auth/login");
+            }}
+            className="text-gray-900 cursor-pointer font-medium hover:underline"
+          >
+            Sign in
+          </p>
         </div>
       </div>
     </div>
