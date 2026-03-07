@@ -14,7 +14,7 @@ function CreateEventForm() {
   } = useForm();
   const createEvent = useMutation({
     mutationFn: async (formData) => {
-      const resp = await axios.post("/api/v1/ticketTemplates", formData, {
+      const resp = await axios.post(import.meta.env.VITE_API_URL + "/api/v1/ticketTemplates", formData, {
         withCredentials: true,
       });
       return resp.data.data;

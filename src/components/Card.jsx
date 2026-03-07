@@ -18,7 +18,7 @@ function EventCard({
   const createTicket = useMutation({
     mutationFn: async (ticketTempId) => {
       const resp = await axios.post(
-        "/api/v1/tickets/" + ticketTempId,
+        import.meta.env.VITE_API_URL + "/api/v1/tickets/" + ticketTempId,
         {},
         { withCredentials: true }
       );

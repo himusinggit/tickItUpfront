@@ -13,10 +13,12 @@ export default function LoginPage() {
   } = useForm();
   const loginUser = useMutation({
     mutationFn: async ({ userName, password }) => {
-      const resp = await axios.post("/api/v1/users/login", {
+      const resp = await axios.post(import.meta.env.VITE_API_URL + "/api/v1/users/login", {
         userName: userName,
         password,
-      });
+      },
+      {withCredentials: true}  
+    );
       return resp.data.data.user;
     },
     onSuccess: (data) => {

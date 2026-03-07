@@ -16,7 +16,7 @@ class authService {
     formData.append("email", email);
     formData.append("password", password);
     avatar.length && formData.append("avatar", avatar[0]);
-    const response = await axios.post("/api/v1/users/register", formData, {
+    const response = await axios.post(import.meta.VITE_API_URL + "/api/v1/users/register", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -26,7 +26,7 @@ class authService {
   };
   login = async ({ userName, password }) => {
     try {
-      const resp = await axios.post("/api/v1/users/login", {
+      const resp = await axios.post(import.meta.env.VITE_API_URL + "/api/v1/users/login", {
         userName: userName,
         password,
       });

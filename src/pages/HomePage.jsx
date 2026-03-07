@@ -8,6 +8,7 @@ import Loader from "../components/Loader";
 import socket from "../sockets/socket";
 function HomePage() {
   useEffect(() => {
+    // console.log(import.meta.env.VITE_API_URL);
     socket.on("ticketPurchased", () => {
       // console.log("Ticket purchased event received");
       refetch();
@@ -19,7 +20,7 @@ function HomePage() {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["buyableTickets"],
     queryFn: async () => {
-      const res = await axios.get("/api/v1/ticketTemplates/buyable", {
+      const res = await axios.get(import.meta.env.VITE_API_URL + "/api/v1/ticketTemplates/buyable", {
         withCredentials: true,
       });
       return res.data;

@@ -5,7 +5,7 @@ function MyTickets(props) {
   const { data, isLoading, error } = useQuery({
     queryKey: ["myTickets"],
     queryFn: async () => {
-      const resp = await axios.get("/api/v1/tickets", {
+      const resp = await axios.get(import.meta.env.VITE_API_URL + "/api/v1/tickets", {
         withCredentials: true,
       });
       console.log(resp.data);
