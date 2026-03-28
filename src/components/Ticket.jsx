@@ -48,7 +48,7 @@ const Ticket = ({ ticket = {}, onClose }) => {
             <div className="bg-white/95 rounded-2xl px-3 pt-3 pb-2 w-[148px] text-center shadow-[0_6px_24px_rgba(0,0,0,0.3)]">
               <p className="text-[10px] font-bold text-black mb-2">Scan to Verify</p>
               <div className="w-[116px] h-[116px] mx-auto border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50 text-[10px] text-gray-400 leading-5">
-                <QRCodeSVG value={_id}></QRCodeSVG>
+                <QRCodeSVG value={ticketCode}></QRCodeSVG>
               </div>
               <p className="text-[9px] text-gray-400 mt-2 break-all leading-4">{ticketCode}</p>
             </div>

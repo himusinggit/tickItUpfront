@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 function Navbar() {
+  const navigate=useNavigate();
   const [open, setOpen] = useState(false);
-
+  const menuItems = [
+  { name: "Home", path: "/" },
+  { name: "My Events", path: "/events" },
+  { name: "My Tickets", path: "/myTickets" },
+  { name: "scanTicket", path: "/scanner" },
+  { name: "Contact", path: "/contact" },
+];
   return (
     <nav className="bg-white shadow-md px-6 py-4 mb-10">
       <div className="flex items-center justify-between">
@@ -13,13 +20,14 @@ function Navbar() {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 text-gray-700 text-[18px] font-medium">
-          {["Home", "My Events", "My Tickets", "Offers", "Contact"].map(
+          {menuItems.map(
             (item) => (
               <li
-                key={item}
+                key={item.name}
                 className="cursor-pointer relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-blue-500 after:transition-all after:duration-300 hover:after:w-full hover:text-blue-500"
+                onClick={()=>{navigate(item.path)}}
               >
-                {item}
+                {item.name}
               </li>
             ),
           )}
@@ -44,12 +52,13 @@ function Navbar() {
       {/* Mobile Menu */}
       {open && (
         <div className="md:hidden mt-4 flex flex-col space-y-4 text-center">
-          {["Home", "Events", "My Tickets", "Offers", "Contact"].map((item) => (
+          {menuItems.map((item) => (
             <p
-              key={item}
+              key={item.name}
               className="cursor-pointer text-lg hover:text-blue-500"
+              onClick={()=>{navigate(item.path)}}
             >
-              {item}
+              {item.name}
             </p>
           ))}
 
