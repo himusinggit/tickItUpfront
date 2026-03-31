@@ -90,6 +90,7 @@ function HomePage() {
               data.data.map((ticket) => (
                 <div key={ticket._id}>
                   <EventCard
+                    ticket={ticket}
                     eventName={ticket.eventName}
                     description={ticket.description}
                     venue={ticket.venue}

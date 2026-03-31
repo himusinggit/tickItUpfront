@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import TicketDetailModal from "./TicketDetails";
 import socket from "../sockets/socket";
 function EventCard({
+  ticket,
   eventName,
   description,
   venue,
@@ -14,7 +16,7 @@ function EventCard({
 }) {
   const totalSeats = seatsSold + seatsRemaining;
   const progress = (seatsSold / totalSeats) * 100;
-
+  const [clicked, setClicked] = useState(false);
   const createTicket = useMutation({
     mutationFn: async (ticketTempId) => {
       const resp = await axios.post(
@@ -37,7 +39,8 @@ function EventCard({
   };
 
   return (
-    <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition duration-300 flex flex-col">
+    <>
+    <div onClick={()=>setClicked(true)} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition duration-300 flex flex-col">
 
       {/* Image */}
       <div className="relative h-56">
@@ -61,10 +64,6 @@ function EventCard({
           <p className="text-sm text-gray-500 mt-1">{venue}</p>
         </div>
 
-        <p className="text-sm text-gray-600 line-clamp-2">
-          {description}
-        </p>
-
         {/* Seats Info */}
         <div>
           <div className="flex justify-between text-xs text-gray-500 mb-1">
@@ -80,17 +79,11 @@ function EventCard({
           </div>
         </div>
 
-        {/* Button */}
-        <button
-          onClick={handleCreations}
-          disabled={seatsRemaining <= 0}
-          className="mt-auto w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition disabled:bg-gray-300"
-        >
-          {seatsRemaining <= 0 ? "Sold Out" : "Book Ticket"}
-        </button>
-
       </div>
+      
     </div>
+      {clicked&&<TicketDetailModal ticket={ticket} onBook={handleCreations} onClose={()=>{setClicked(false);}} />}
+    </>
   );
 }
 
