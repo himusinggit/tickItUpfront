@@ -3,7 +3,16 @@ const accentColors = ["bg-violet-500", "bg-pink-500", "bg-orange-500", "bg-blue-
 const TicketCard = ({ ticket }) => {
   const { eventName, eventDate, venue } = ticket.ticketTemplate;
   const { ticketCode, status} = ticket;
-
+  function getStatusColor(status) {
+    switch (status) {
+      case "valid":
+        return "rgb(30, 198, 92)"; // Tailwind's green-500
+      case "used":
+        return "rgb(188, 54, 54)"; // Tailwind's red-500
+      default:
+        return "rgb(107, 114, 128)"; // Tailwind's gray-500
+    }
+  }
   const formattedDate = new Date(eventDate).toLocaleDateString("en-GB", {
     day: "numeric", month: "short", year: "numeric",
   });
@@ -19,7 +28,7 @@ const TicketCard = ({ ticket }) => {
           <p className="text-gray-400 text-[12px] mt-0.5 truncate">{venue} · {formattedDate}</p>
           <p className="text-gray-300 text-[10px] font-mono mt-1 truncate">{ticketCode}</p>
         </div>
-        <span className="text-[11px] font-semibold px-3 py-1 rounded-full shrink-0 capitalize bg-gray-100 text-gray-500 border border-gray-200">
+        <span className="text-[11px] font-semibold px-3 py-1 rounded-full shrink-0 capitalize bg-gray-100 text-white border border-gray-200"style={{backgroundColor:getStatusColor(status)}}>
           {status}
         </span>
       </div>
