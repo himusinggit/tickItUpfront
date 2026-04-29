@@ -7,7 +7,7 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   const menuItems = [
   { name: "Home", path: "/" },
-  { name: "My Events", path: "/events" },
+  { name: "My Events", path: "/myEvents" },
   { name: "My Tickets", path: "/myTickets" },
   { name: "scanTicket", path: "/scanner" },
   { name: "Contact", path: "/contact" },
@@ -28,6 +28,7 @@ function Navbar() {
     },
   });
   const handleLogout = () => {
+    setOpen(false);
     logoutMutation.mutate();
   }
   return (
@@ -68,12 +69,12 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden mt-4 flex flex-col space-y-4 text-center">
+        <div className="md:hidden mt-4 -ml-6 flex flex-col space-y-4 w-full items-center bg-white absolute">
           {menuItems.map((item) => (
             <p
               key={item.name}
               className="cursor-pointer text-lg hover:text-blue-500"
-              onClick={()=>{navigate(item.path)}}
+              onClick={()=>{setOpen(false);navigate(item.path);}}
             >
               {item.name}
             </p>

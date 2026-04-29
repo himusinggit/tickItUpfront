@@ -11,6 +11,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import CreateEventForm from "./pages/TicketTemplateCreationPage.jsx";
 import ScannerPage from "./pages/ScannerPage.jsx";
+import MyEventsPage from "./pages/MyEvents.jsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path:"scanner",
         element:<ScannerPage/>
+      },
+      {
+        path:"myEvents",
+        element:<MyEventsPage/>
       }
     ],
   },

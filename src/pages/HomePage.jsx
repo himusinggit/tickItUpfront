@@ -61,7 +61,7 @@ function HomePage() {
           </motion.p>
 
           {/* Search bar */}
-          <div className="relative flex justify-center mb-3">
+          {/* <div className="relative flex justify-center mb-3">
             <input
               type="text"
               placeholder="Search for tech fests, concerts, or workshops..."
@@ -81,7 +81,7 @@ function HomePage() {
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-          </div>
+          </div> */}
           <br />
           {/* Description */}
           <p className="text-center text-gray-600 text-lg max-w-3xl mx-auto mb-14">
