@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 function Navbar() {
   const navigate=useNavigate();
   const [open, setOpen] = useState(false);
@@ -10,6 +12,24 @@ function Navbar() {
   { name: "scanTicket", path: "/scanner" },
   { name: "Contact", path: "/contact" },
 ];
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      // Call your logout API endpoint here
+      const response = await axios.post(
+        import.meta.env.VITE_API_URL + "/api/v1/users/logout",{},
+        { withCredentials: true }
+      );
+      if (!response.data.success) {
+        throw new Error("Logout failed");
+      }
+    },
+    onSuccess: () => {
+      navigate("/guest");
+    },
+  });
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  }
   return (
     <nav className="bg-white shadow-md px-6 py-4 mb-10">
       <div className="flex items-center justify-between">
@@ -34,12 +54,9 @@ function Navbar() {
         </ul>
 
         {/* Desktop Buttons */}
-        <div className="hidden md:flex space-x-3">
-          <button className="font-pop px-4 py-2 text-blue-600 rounded">
-            Sign Up
-          </button>
+        <div onClick={handleLogout} className="hidden md:flex space-x-3">
           <button className="font-pop px-4 py-2 bg-black text-white text-[18px] rounded-full hover:bg-blue-700 transition">
-            Login
+            Log out
           </button>
         </div>
 
@@ -63,9 +80,8 @@ function Navbar() {
           ))}
 
           <div className="flex flex-col space-y-2">
-            <button className="px-4 py-2 text-blue-600">Sign Up</button>
-            <button className="px-4 py-2 bg-black text-white rounded-full">
-              Login
+            <button onClick={handleLogout} className="px-4 py-2 bg-black text-white rounded-full">
+              Log Out
             </button>
           </div>
         </div>

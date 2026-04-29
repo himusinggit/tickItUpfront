@@ -7,7 +7,9 @@ import { useEffect } from "react";
 import Loader from "../components/Loader";
 import socket from "../sockets/socket";
 import Ticket from "../components/Ticket";
+import { useNavigate } from "react-router-dom";
 function HomePage() {
+  const navigate = useNavigate();
   useEffect(() => {
     // console.log(import.meta.env.VITE_API_URL);
     socket.on("ticketPurchased", () => {
@@ -24,12 +26,16 @@ function HomePage() {
       const res = await axios.get(import.meta.env.VITE_API_URL + "/api/v1/ticketTemplates/buyable", {
         withCredentials: true,
       });
+      console.log(res);
       return res.data;
     },
     refetchOnWindowFocus: false,
     // refetchInterval: 2000,
     // refetchIntervalInBackground:false
   });
+  if(error){
+    navigate("/guest");
+  }
   if (!isLoading) {
     return (
       <>

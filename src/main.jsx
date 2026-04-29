@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage.jsx";
 import App from "./App.jsx";
 import MyTickets from "./pages/MyTickets.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
+import TickitUpLanding from "./pages/guestPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
+      {
+        path:"/guest",
+        element:<TickitUpLanding/>
+      },
       {
         path: "",
         element: <HomePage />,
